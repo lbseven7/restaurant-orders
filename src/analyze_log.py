@@ -18,21 +18,20 @@ def analyze_log(path_to_file):
         raise FileNotFoundError(f"Arquivo inexistente: '{path_to_file}'")
     
 # Qual o prato mais pedido por 'maria'?
-    # def find_maria_favorite_food():
-    find_maria_favorite_food = []
-    for line in data_csv:
-        if (line.startswith("maria")):
-            find_maria_favorite_food.append(line)
+    def find_maria_favorite_food(data_csv):
+        find_maria_favorite_food = []
+        for line in data_csv:
+            if (line.startswith("maria")):
+                find_maria_favorite_food.append(line)
             # print(line)
-   
-    maria_food_counter = Counter(find_maria_favorite_food) # all maria's foods
-    # print(maria_food_counter)
-    maria_hamburguer = maria_food_counter.most_common(1)[0][0].split(',')[1] # hamburguer
-    # print(maria_hamburguer)
+        maria_food_counter = Counter(find_maria_favorite_food) # all maria's foods
+        # print(maria_food_counter)
+        maria_hamburguer = maria_food_counter.most_common(1)[0][0].split(',')[1] # hamburguer
+        # print(maria_hamburguer)
 
-    with open('data/mkt_campaign.txt', 'w') as maria:
-        maria.write(maria_hamburguer)
-    # print(maria_favorite_food)
+        with open('data/mkt_campaign.txt', 'w') as maria:
+            maria.write(maria_hamburguer)
+    find_maria_favorite_food(data_csv)
 
 # Quantas vezes 'arnaldo' pediu 'hamburguer'?
     # arnaldo_hamburguer = []
