@@ -23,32 +23,48 @@ def analyze_log(path_to_file):
         for line in data_csv:
             if (line.startswith("maria")):
                 find_maria_favorite_food.append(line)
-            # print(line)
-        maria_food_counter = Counter(find_maria_favorite_food) # all maria's foods
-        # print(maria_food_counter)
-        maria_hamburguer = maria_food_counter.most_common(1)[0][0].split(',')[1] # hamburguer
-        # print(maria_hamburguer)
+        maria_food_counter = Counter(find_maria_favorite_food)
+        return maria_food_counter.most_common(1)[0][0].split(',')[1]
 
-        with open('data/mkt_campaign.txt', 'w') as maria:
-            maria.write(maria_hamburguer)
-    find_maria_favorite_food(data_csv)
 
 # Quantas vezes 'arnaldo' pediu 'hamburguer'?
-    # arnaldo_hamburguer = []
-    # for line in data_csv:
-    #     if (line.startswith("arnaldo")):
-    #         arnaldo_hamburguer.append(line)
-    # # print(arnaldo_hamburguer)
-    # arnaldo_count = Counter(arnaldo_hamburguer) # all arnaldo's foods
-    # arnaldo_order_hamburguer = arnaldo_count.most_common(1)[0][0].split(',')[1] # misto-quente mais comum
+    def arnaldo_burguer(data_csv):
+        find_arnaldo_burguer = []
+        for line in data_csv:
+            if (line.startswith("arnaldo")):
+                find_arnaldo_burguer.append(line.split(',')[1])
+        arnaldo_food_counter = Counter(find_arnaldo_burguer)
+        return arnaldo_food_counter.most_common()[-1][1] # { hamburguer, 1 }
     
-
-
-
+    
 # Quais pratos 'joao' nunca pediu?
-
-
-
-
-
-# Quais dias 'joao' nunca foi à lanchonete?
+    def joao_never_ordered(data_csv):
+        menu = set()
+        for line in data_csv:
+                menu.add(line.split(',')[1])
+        
+        joao_order = set()
+        for line in data_csv:
+            if (line.startswith("joao")):
+                joao_order.add(line.split(',')[1])
+        return menu.difference(joao_order)
+            
+# Quais dias 'joao' nunca foi à lanchonete? Ajuda do Arlisson
+    def joao_never_came(data_csv):
+        days = set()
+        for line in data_csv:
+            days.add(line.split(',')[2].replace('\n', ''))
+        
+        joao_days = set()
+        for line in data_csv:
+            if (line.startswith("joao")):
+                joao_days.add(line.split(',')[2].replace('\n', ''))
+        return days.difference(joao_days)
+    
+    with open('data/mkt_campaign.txt', 'w') as file:
+        file.write(
+            f"{find_maria_favorite_food(data_csv)}\n"
+            f"{arnaldo_burguer(data_csv)}\n"
+            f"{joao_never_ordered(data_csv)}\n"
+            f"{joao_never_came(data_csv)}\n"
+        )
