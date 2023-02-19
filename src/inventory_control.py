@@ -37,5 +37,5 @@ class InventoryControl:
     def get_quantities_to_buy(self):
         return self.inventory
 
-    def get_available_dishes():
-        pass
+    def get_available_dishes(self):
+        return self.INGREDIENTS.keys()
